@@ -14,16 +14,55 @@
     </head>
     <body>
         <section class="section">
-            <div class="title">Trưa nay bạn muốn ăn gì?</div>
+            <p class="title" id="title--search"></p>
             <p id="demo" class="Food"></p>
             <button onclick="goiYMonAn()" class="button">Gợi ý</button>
         </section>
     </body>
     <script>
-        let Food = ["Cơm tấm", "Xôi thịt", "Bún chả", "Bún riêu", "Bánh mì"];
-        function goiYMonAn() {
-            let randomIdenx = Math.floor(Math.random() * Food.length);
-            document.getElementById("demo").innerHTML = Food[randomIdenx];
+        let Food;
+        let titleString = "Không xác định";
+        let hours = new Date().getHours();
+        const Food_morning = [
+            "Cháo lòng",
+            "Mì Quãng",
+            "Bún chả",
+            "Bún riêu",
+            "Bánh mì",
+        ];
+        const Food_afternoon = [
+            "Cơm tấm",
+            "Bún cá",
+            "Xôi thịt",
+            "Hủ tiếu",
+            "Cơm gà",
+        ];
+        const Food_evening = [
+            "Buffet",
+            "Bún đậu mắm tôm",
+            "Lẩu nướng",
+            "Cơm chay",
+            "Ốc nướng",
+        ];
+        if (hours >= 6 && hours <= 10) {
+            Food = Food_morning;
+            titleString = "Sáng nay bạn muốn ăn gì?";
+        } else if (hours > 10 && hours <= 14) {
+            Food = Food_afternoon;
+            titleString = "Trưa nay bạn muốn ăn gì?";
+        } else if (hours > 14 && hours <= 21) {
+            Food = Food_evening;
+            titleString = "Tối nay bạn muốn ăn gì?";
+        } else {
+            titleString = "Giờ này bạn không nên ăn nữa đâu!";
+            Food = ["Nước lọc"];
         }
+        const titleElement = document.getElementById("title--search");
+        titleElement.innerHTML = titleString;
+        function goiYMonAn() {
+            let randomFood = Math.floor(Math.random() * Food.length);
+            document.getElementById("demo").innerHTML = Food[randomFood];
+        }
+        goiYMonAn();
     </script>
 </html>
